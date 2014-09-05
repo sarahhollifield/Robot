@@ -1,0 +1,47 @@
+Be sure you have the PyDev plugin for Eclipse for this to work.
+	You also need PyDev configured in Eclipse as well. 
+		Add interpreter
+			Window > Preferences > PyDev > Interpreters > Python Interpreter
+			Add it by clicking "New" and finding your Python.exe file.
+1. Create form in PyQt
+2. Save it into the project folder in Eclipse 
+	it will be a ui file type
+3. Open command prompt and navigate to where that ui document is
+4. Type "pyuic4 filename.ui >> filename.py" 
+	This will convert the ui file into a python file inside your Eclipse project folder
+5. Open the new filename.py in Eclipse
+6. You will not change this file. As you update your form, you will have to re-run that function
+   pyuic4 and when you run that function it will save over your filename.py so don't write code there
+7. Make a new PyDev Module. Name it whatever you want. This is where you will write your code.
+8. In that file, let's call it Main.py, here is a template:
+
+import sys
+from PyQt4 import QtGui 
+from test import Ui_MainWindow 
+#first is the name of the ui file.
+#second is the name of the window in PyQt
+
+class Main(QtGui.QMainWindow):
+    def __init__(self):
+        QtGui.QMainWindow.__init__(self)
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        
+if __name__ == '__main__':
+    app = QtGui.QApplication(sys.argv)
+    window = Main()
+    window.show()
+    sys.exit(app.exec_())
+
+On the 3rd line, after "from" is the name of your filename.py, and after "import" is the name of your
+ window in PyQt.
+
+9. To create functions, write the listener stuff like if a button has been clicked
+	in the init function.
+	Here's an example:
+		self.ui.btnClick.clicked.connect(self.btnClicked)
+		This means when the btnClick (as it was named on the form) is clicked, it calls the btnClicked function
+	
+	An example of the function is:
+		def btnClicked(self):
+        		self.ui.txtOutput.setText("IT WORKS")
